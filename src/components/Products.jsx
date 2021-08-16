@@ -3,7 +3,7 @@ import { useProductsContext } from "../contexts/ProductsContext";
 import "./App.css";
 
 export default function Products() {
-  const [products, setProducts] = useProductsContext();
+  const [state, dispatch] = useProductsContext();
   const [locale] = useLocaleContext();
 
   function currencySelect() {
@@ -17,20 +17,19 @@ export default function Products() {
     }
   }
 
-  const handleRemove = (id) => {
-    const newList = products.filter((item) => item.id !== id);
-
-    setProducts(newList);
-  };
-
   return (
     <div className="Products">
-      {products.map((prod) => (
+      {state.map((prod) => (
         <div className="data">
           <div>
             {prod.name}: {prod.price} {currencySelect()}
           </div>
-          <button type="button" onClick={() => handleRemove(prod.id)}>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch({ type: "delete", payload: { id: prod.id } })
+            }
+          >
             Remove
           </button>
         </div>

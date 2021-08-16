@@ -4,12 +4,12 @@ import { useProductsContext } from "../contexts/ProductsContext";
 export default function CreateProduct() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [products, setProducts] = useProductsContext();
+  const [state, dispatch] = useProductsContext();
 
   function createProduct() {
     const id = Math.floor(Math.random() * 99999999999);
 
-    setProducts([...products, { id, name, price }]);
+    dispatch({ type: "add", payload: { id, name, price } });
   }
 
   return (
